@@ -18,10 +18,16 @@ Backend3/
 ├── src/
 │   ├── app.js
 │   ├── server.js
+│   ├── config/
+│   │   └── swagger.js
 │   ├── routers/
-│   │   └── adoption.router.js
+│   │   ├── adoption.router.js
+│   │   ├── users.router.js
+│   │   └── pets.router.js
 │   ├── controllers/
-│   │   └── adoptions.controller.js
+│   │   ├── adoptions.controller.js
+│   │   ├── users.controller.js
+│   │   └── pets.controller.js
 │   ├── dao/
 │   │   ├── models/
 │   │   │   ├── Adoption.js
@@ -42,15 +48,44 @@ Backend3/
 ├── package.json
 └── README.md
 ```
+
 ---
 
 ## Endpoints
+
+### Adoptions
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
 | `GET` | `/api/adoptions` | Obtiene todas las adopciones |
 | `GET` | `/api/adoptions/:aid` | Obtiene una adopción por ID |
 | `POST` | `/api/adoptions/:uid/:pid` | Crea una nueva adopción |
+
+### Users
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/users` | Obtiene todos los usuarios |
+| `GET` | `/api/users/:uid` | Obtiene un usuario por ID |
+| `POST` | `/api/users` | Crea un nuevo usuario |
+
+### Pets
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/pets` | Obtiene todas las mascotas |
+| `GET` | `/api/pets/:pid` | Obtiene una mascota por ID |
+| `POST` | `/api/pets` | Crea una nueva mascota |
+
+---
+
+## Documentación Swagger
+
+Con el servidor corriendo, accedé a la documentación interactiva en:
+
+```
+http://localhost:8080/api-docs
+```
 
 ---
 
@@ -74,7 +109,9 @@ docker build -t josemariamuller/adoption-api:1.0.0 .
 ### Ejecutar el contenedor
 
 ```bash
-docker run -d -p 8080:8080 --name adoption-api josemariamuller/adoption-api:1.0.0
+docker run -d -p 8080:8080 \
+  -e MONGO_URL="mongodb+srv://usuario:password@cluster.mongodb.net/backend3" \
+  --name adoption-api josemariamuller/adoption-api:1.0.0
 ```
 
 ### Ver logs
